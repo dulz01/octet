@@ -481,7 +481,7 @@ namespace octet {
 
     // called every frame to move things
     void simulate() {
-      if (game_over) {
+      if (game_over || is_key_down(key_esc)) {
         return;
       }
 
