@@ -236,6 +236,13 @@ namespace octet {
       }
     }
 
+    // press ESC to pause the game
+    void pause_game() {
+        if (is_key_going_down(key_esc)) {
+            game_over = !game_over;
+        }
+    }
+
     // use the keyboard to move the ship
     void move_ship() {
       const float ship_speed = 0.05f;
@@ -481,7 +488,7 @@ namespace octet {
 
     // called every frame to move things
     void simulate() {
-      if (game_over || is_key_down(key_esc)) {
+      if (game_over) {
         return;
       }
 
@@ -506,6 +513,9 @@ namespace octet {
 
     // this is called to draw the world
     void draw_world(int x, int y, int w, int h) {
+      
+      pause_game();
+
       simulate();
 
       // set a viewport - includes whole window area
