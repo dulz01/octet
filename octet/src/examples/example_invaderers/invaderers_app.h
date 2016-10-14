@@ -156,6 +156,7 @@ namespace octet {
       // sprite definitions
       ship_sprite = 0,
       game_over_sprite,
+      paused_sprite,
 
       first_invaderer_sprite,
       last_invaderer_sprite = first_invaderer_sprite + num_invaderers - 1,
@@ -238,9 +239,10 @@ namespace octet {
 
     // press ESC to pause the game
     void pause_game() {
-        if (is_key_going_down(key_esc)) {
-            game_over = !game_over;
-        }
+      if (is_key_going_down(key_esc)) {
+        game_over = !game_over;
+        sprites[paused_sprite].translate(-20, 0);
+      }
     }
 
     // use the keyboard to move the ship
@@ -436,6 +438,9 @@ namespace octet {
 
       GLuint GameOver = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/GameOver.gif");
       sprites[game_over_sprite].init(GameOver, 20, 0, 3, 1.5f);
+
+      GLuint Paused = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/Paused.gif");
+      sprites[paused_sprite].init(Paused, 20, 0, 3, 1.5f);
 
       GLuint invaderer = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/invaderer.gif");
       for (int j = 0; j != num_rows; ++j) {
