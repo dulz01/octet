@@ -255,28 +255,26 @@ namespace octet {
         if (sprites[ship_sprite].collides_with(sprites[first_border_sprite+2])) {
           sprites[ship_sprite].translate(+ship_speed, 0);
         }
-      } 
+      } else if (is_key_down(key_right)) {
+        sprites[ship_sprite].translate(+ship_speed, 0);
+        if (sprites[ship_sprite].collides_with(sprites[first_border_sprite + 3])) {
+          sprites[ship_sprite].translate(-ship_speed, 0);
+        }
+      }
       
       if (is_key_down(key_up)) {
         sprites[ship_sprite].translate(0, +ship_speed);
         if (sprites[ship_sprite].collides_with(sprites[first_border_sprite+1])) {
           sprites[ship_sprite].translate(0, -ship_speed);
         }
-      }
-
-      if (is_key_down(key_down)) {
+      } else if (is_key_down(key_down)) {
         sprites[ship_sprite].translate(0, -ship_speed);
         if (sprites[ship_sprite].collides_with(sprites[first_border_sprite+0])) {
           sprites[ship_sprite].translate(0, +ship_speed);
         }
       }
 
-      if (is_key_down(key_right)) {
-        sprites[ship_sprite].translate(+ship_speed, 0);
-        if (sprites[ship_sprite].collides_with(sprites[first_border_sprite+3])) {
-          sprites[ship_sprite].translate(-ship_speed, 0);
-        }
-      }
+      
     }
 
     // fire button (space)
@@ -530,6 +528,12 @@ namespace octet {
       if (invaders_collide(border)) {
         invader_velocity = -invader_velocity;
         move_invaders(invader_velocity, -0.1f);
+      }
+
+      // if the invaders collide with the ship then the ship loses 1 life
+      sprite &ship = sprites[ship_sprite];
+      if (invaders_collide(ship)) {
+        on_hit_ship();
       }
     }
 
