@@ -250,7 +250,7 @@ namespace octet {
 
     // press ESC to pause the game
     void pause_game() {
-      if (is_key_going_down(key_esc)) {
+      if (is_key_going_down(key_p)) {
         game_over = !game_over;
         sprites[paused_sprite].translate(-20, 0);
       }
