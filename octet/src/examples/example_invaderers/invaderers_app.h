@@ -188,7 +188,8 @@ namespace octet {
     int score;
 
     // speed of enemy
-    float invader_velocity;
+    float invader_velocity_x;
+    float invader_velocity_y;
 
     // sounds
     ALuint whoosh;
@@ -219,7 +220,8 @@ namespace octet {
       live_invaderers--;
       score++;
       if (live_invaderers == 4) {
-        invader_velocity *= 4;
+        invader_velocity_x *= 4;
+        invader_velocity_y *= 4;
       }
       else if (live_invaderers == 0) {
         game_over = true;
@@ -517,7 +519,8 @@ namespace octet {
       missiles_disabled = 0;
       bombs_disabled = 50;
       player_collision_disabled = 0;
-      invader_velocity = 0.01f;
+      invader_velocity_x = 0.01f;
+      invader_velocity_y = 0.01f;
       live_invaderers = num_invaderers;
       num_lives = 3;
       game_over = false;
@@ -540,12 +543,18 @@ namespace octet {
 
       move_bombs();
 
-      move_invaders(invader_velocity, 0);
+      move_invaders(invader_velocity_x, invader_velocity_y);
 
-      sprite &border = sprites[first_border_sprite + (invader_velocity < 0 ? 2 : 3)];
-      if (invaders_collide(border)) {
-        invader_velocity = -invader_velocity;
-        move_invaders(invader_velocity, -0.1f);
+      sprite &border_x = sprites[first_border_sprite + (invader_velocity_x < 0 ? 2 : 3)];
+      if (invaders_collide(border_x)) {
+        invader_velocity_x = -invader_velocity_x;
+        move_invaders(invader_velocity_x, 0);
+      }
+
+      sprite &border_y = sprites[first_border_sprite + (invader_velocity_y < 0 ? 0 : 1)];
+      if (invaders_collide(border_y)) {
+        invader_velocity_y = -invader_velocity_y;
+        move_invaders(0, invader_velocity_y);
       }
 
       // if the invaders collide with the ship then the ship loses 1 life
