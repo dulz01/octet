@@ -155,9 +155,7 @@ namespace octet {
 
       // sprite definitions
       ship_sprite = 0,
-      game_over_sprite,
-      paused_sprite,
-
+      
       first_invaderer_sprite,
       last_invaderer_sprite = first_invaderer_sprite + num_invaderers - 1,
 
@@ -169,6 +167,9 @@ namespace octet {
 
       first_border_sprite,
       last_border_sprite = first_border_sprite + num_borders - 1,
+
+      game_over_sprite,
+      paused_sprite,
 
       num_sprites,
 
@@ -186,6 +187,7 @@ namespace octet {
     // game state
     bool game_over;
     int score;
+    float paused_position_x;
 
     // speed of enemy
     float invader_velocity_x;
@@ -250,11 +252,13 @@ namespace octet {
 
     }
 
-    // press ESC to pause the game
+    // press P to pause the game
+    // this moves the sprite in and out of the game area.
     void pause_game() {
       if (is_key_going_down(key_p)) {
         game_over = !game_over;
-        sprites[paused_sprite].translate(-20, 0);
+        paused_position_x = -paused_position_x;
+        sprites[paused_sprite].translate(paused_position_x, 0);
       }
     }
 
@@ -525,6 +529,7 @@ namespace octet {
       num_lives = 3;
       game_over = false;
       score = 0;
+      paused_position_x = 20;
     }
 
     // called every frame to move things
