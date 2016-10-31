@@ -26,6 +26,17 @@ namespace octet {
 
     // true if this sprite is enabled.
     bool enabled;
+
+    // animation data for the sprite
+    int frameNumber;
+    float numFramesInX;
+    float numFramesInY;
+    float textureWidth;
+    float textureHeight;
+    float frameWidth;
+    float frameHeight;
+    float frameX;
+    float frameY;
   public:
     sprite() {
       texture = 0;
