@@ -41,8 +41,12 @@ namespace octet {
     // the size of the frame within the sprite sheet
     float frameWidth;
     float frameHeight;
-    float frameX;
-    float frameY;
+
+    // the frame coordinates
+    float frameXLeft;
+    float frameXRight;
+    float frameYBottom;
+    float frameYTop;
   public:
     sprite() {
       texture = 0;
@@ -68,8 +72,9 @@ namespace octet {
       frameWidth = textureWidth / numFramesInX;
       frameHeight = textureHeight / numFramesInY;
 
-      // finding the left hand side of the frame.
-      frameX = (frameNumber % numFramesInX) * textureWidth;
+      // finding the left hand side and the right hand side of the frame.
+      frameXLeft = (frameNumber % numFramesInX) * frameWidth;
+      frameXRight = frameXLeft + frameWidth;
 
       // finding the bottom of the frame.
       // (frameNumber / numFramesInX) finds the row the frame is on in the sprite sheet.
@@ -77,13 +82,12 @@ namespace octet {
       // subtracting the textureHeight by the value given finds the bottom of the frame.
       // subtracting the value further by frameHeight gives the value corresponding to the 
       // texture coordinates.
-      frameY = (textureHeight - ((frameNumber / numFramesInX) * frameHeight)) - frameHeight;
+      frameYBottom = (textureHeight - ((frameNumber / numFramesInX) * frameHeight)) - frameHeight;
 
-      //Normalize the frame data for tex coords
-      frameWidth = frameWidth / textureWidth;
-      frameHeight = frameHeight / textureHeight;
-      frameX = frameX / textureWidth;
-      frameY = frameY / textureHeight;
+      // finding the top of the frame.
+      frameYTop = frameYBottom + frameHeight;
+
+      
     }
 
     void render(texture_shader &shader, mat4t &cameraToWorld) {
@@ -118,12 +122,18 @@ namespace octet {
       glVertexAttribPointer(attribute_pos, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)vertices);
       glEnableVertexAttribArray(attribute_pos);
 
+      // normalize the frame data for tex coords
+      frameXLeft = frameXLeft / textureWidth;
+      frameXRight = frameXRight / textureWidth;
+      frameYBottom = frameYBottom / textureHeight;
+      frameYTop = frameYTop / textureHeight;
+
       // this is an array of the positions of the corners of the texture in 2D
       static const float uvs[] = {
-        frameX,  frameY,
-        frameWidth,  frameY,
-        frameWidth,  frameHeight,
-        frameX,  frameHeight,
+        frameXLeft,  frameYBottom,
+        frameXRight,  frameYBottom,
+        frameXRight,  frameYTop,
+        frameXLeft,  frameYTop,
       };
 
       // attribute_uv is position in the texture of each corner
