@@ -57,13 +57,33 @@ namespace octet {
       texture = _texture;
       enabled = true;
 
+      // animation data
       frameNumber = 0;
       numFramesInX = numFramesX;
       numFramesInY = numFramesY;
       textureWidth = w;
       textureHeight = h;
+
+      // finding the size of the frame
       frameWidth = textureWidth / numFramesInX;
       frameHeight = textureHeight / numFramesInY;
+
+      // finding the left hand side of the frame.
+      frameX = (frameNumber % numFramesInX) * textureWidth;
+
+      // finding the bottom of the frame.
+      // (frameNumber / numFramesInX) finds the row the frame is on in the sprite sheet.
+      // multiplying it by frameHeight finds the top of the frame.
+      // subtracting the textureHeight by the value given finds the bottom of the frame.
+      // subtracting the value further by frameHeight gives the value corresponding to the 
+      // texture coordinates.
+      frameY = (textureHeight - ((frameNumber / numFramesInX) * frameHeight)) - frameHeight;
+
+      //Normalize the frame data for tex coords
+      frameWidth = frameWidth / textureWidth;
+      frameHeight = frameHeight / textureHeight;
+      frameX = frameX / textureWidth;
+      frameY = frameY / textureHeight;
     }
 
     void render(texture_shader &shader, mat4t &cameraToWorld) {
@@ -100,10 +120,10 @@ namespace octet {
 
       // this is an array of the positions of the corners of the texture in 2D
       static const float uvs[] = {
-        0,  0,
-        1,  0,
-        1,  1,
-        0,  1,
+        frameX,  frameY,
+        frameWidth,  frameY,
+        frameWidth,  frameHeight,
+        frameX,  frameHeight,
       };
 
       // attribute_uv is position in the texture of each corner
