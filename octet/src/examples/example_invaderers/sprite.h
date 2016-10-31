@@ -86,8 +86,6 @@ namespace octet {
 
       // finding the top of the frame.
       frameYTop = frameYBottom + frameHeight;
-
-      
     }
 
     void render(texture_shader &shader, mat4t &cameraToWorld) {
