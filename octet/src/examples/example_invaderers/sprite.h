@@ -29,10 +29,16 @@ namespace octet {
 
     // animation data for the sprite
     int frameNumber;
-    float numFramesInX;
-    float numFramesInY;
+
+    // specifies the dimensions of the sprite sheet
+    int numFramesInX;
+    int numFramesInY;
+
+    // size of the whole texture. Used for calculations.
     float textureWidth;
     float textureHeight;
+
+    // the size of the frame within the sprite sheet
     float frameWidth;
     float frameHeight;
     float frameX;
@@ -43,13 +49,21 @@ namespace octet {
       enabled = true;
     }
 
-    void init(int _texture, float x, float y, float w, float h) {
+    void init(int _texture, float x, float y, float w, float h, int numFramesX, int numFramesY) {
       modelToWorld.loadIdentity();
       modelToWorld.translate(x, y, 0);
       halfWidth = w * 0.5f;
       halfHeight = h * 0.5f;
       texture = _texture;
       enabled = true;
+
+      frameNumber = 0;
+      numFramesInX = numFramesX;
+      numFramesInY = numFramesY;
+      textureWidth = w;
+      textureHeight = h;
+      frameWidth = textureWidth / numFramesInX;
+      frameHeight = textureHeight / numFramesInY;
     }
 
     void render(texture_shader &shader, mat4t &cameraToWorld) {
