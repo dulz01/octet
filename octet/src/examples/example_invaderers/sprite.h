@@ -47,10 +47,16 @@ namespace octet {
     float frameXRight;
     float frameYBottom;
     float frameYTop;
+
+    // the number of frames the sprite has
+    int minFrameNum;
+    int maxFrameNum;
   public:
     sprite() {
       texture = 0;
       enabled = true;
+
+      minFrameNum = 0;
     }
 
     void init(int _texture, float x, float y, float w, float h, int numFramesX, int numFramesY) {
@@ -82,6 +88,24 @@ namespace octet {
       // subtracting the textureHeight by the value given finds the bottom of the frame.
       // subtracting the value further by frameHeight gives the value corresponding to the 
       // texture coordinates.
+      frameYBottom = (textureHeight - ((frameNumber / numFramesInX) * frameHeight)) - frameHeight;
+
+      // finding the top of the frame.
+      frameYTop = frameYBottom + frameHeight;
+
+      // set number of frames in sprite.
+      maxFrameNum = numFramesInX * numFramesInY;
+    }
+
+    // update the frame number to animate the sprite.
+    void AnimateTexture() {
+      frameNumber++;
+      if (frameNumber >= maxFrameNum) {
+        frameNumber = minFrameNum;
+      }
+
+      frameXLeft = (frameNumber % numFramesInX) * frameWidth;
+      frameXRight = frameXLeft + frameWidth;
       frameYBottom = (textureHeight - ((frameNumber / numFramesInX) * frameHeight)) - frameHeight;
 
       // finding the top of the frame.
@@ -119,6 +143,9 @@ namespace octet {
       // there is no gap between the 3 floats and hence the stride is 3*sizeof(float)
       glVertexAttribPointer(attribute_pos, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)vertices);
       glEnableVertexAttribArray(attribute_pos);
+
+      // update the frame number
+      AnimateTexture();
 
       // normalize the frame data for tex coords
       frameXLeft = frameXLeft / textureWidth;
