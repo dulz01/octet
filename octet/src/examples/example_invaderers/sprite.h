@@ -52,6 +52,7 @@ namespace octet {
     int minFrameNum;
     int maxFrameNum;
 
+    // this is an array of the positions of the corners of the texture in 2D
     float uvs[8];
   public:
     sprite() {
@@ -59,6 +60,37 @@ namespace octet {
       enabled = true;
 
       minFrameNum = 0;
+    }
+
+    // updates the frame number
+    void animateTexture() {
+      frameNumber++;
+      if (frameNumber >= maxFrameNum) {
+        frameNumber = minFrameNum;
+      }
+    }
+
+    void calculateFrameCoords() {
+      // finding the left hand side and the right hand side of the frame.
+      frameXLeft = (frameNumber % numFramesInX) * frameWidth;
+      frameXRight = frameXLeft + frameWidth;
+
+      // finding the bottom of the frame.
+      // (frameNumber / numFramesInX) finds the row the frame is on in the sprite sheet.
+      // multiplying it by frameHeight finds the top of the frame.
+      // subtracting the textureHeight by the value given finds the bottom of the frame.
+      // subtracting the value further by frameHeight gives the value corresponding to the 
+      // texture coordinates.
+      frameYBottom = (textureHeight - ((frameNumber / numFramesInX) * frameHeight)) - frameHeight;
+
+      // finding the top of the frame.
+      frameYTop = frameYBottom + frameHeight;
+
+      // convert the frame coordinates to texture coordinates
+      frameXLeft = frameXLeft / textureWidth;
+      frameXRight = frameXRight / textureWidth;
+      frameYBottom = frameYBottom / textureHeight;
+      frameYTop = frameYTop / textureHeight;
     }
 
     void init(int _texture, float x, float y, float w, float h, int numFramesX, int numFramesY) {
@@ -79,62 +111,9 @@ namespace octet {
       // finding the size of the frame
       frameWidth = textureWidth / numFramesInX;
       frameHeight = textureHeight / numFramesInY;
-
-      // finding the left hand side and the right hand side of the frame.
-      frameXLeft = (frameNumber % numFramesInX) * frameWidth;
-      frameXRight = frameXLeft + frameWidth;
-
-      // finding the bottom of the frame.
-      // (frameNumber / numFramesInX) finds the row the frame is on in the sprite sheet.
-      // multiplying it by frameHeight finds the top of the frame.
-      // subtracting the textureHeight by the value given finds the bottom of the frame.
-      // subtracting the value further by frameHeight gives the value corresponding to the 
-      // texture coordinates.
-      frameYBottom = (textureHeight - ((frameNumber / numFramesInX) * frameHeight)) - frameHeight;
-
-      // finding the top of the frame.
-      frameYTop = frameYBottom + frameHeight;
-
+      
       // set number of frames in sprite.
       maxFrameNum = numFramesInX * numFramesInY;
-
-      frameXLeft = frameXLeft / textureWidth;
-      frameXRight = frameXRight / textureWidth;
-      frameYBottom = frameYBottom / textureHeight;
-      frameYTop = frameYTop / textureHeight;
-
-      float uvs[] = {
-        frameXLeft,  frameYBottom,
-        frameXRight,  frameYBottom,
-        frameXRight,  frameYTop,
-        frameXLeft,  frameYTop, };
-    }
-
-    // update the frame number to animate the sprite.
-    void AnimateTexture() {
-      frameNumber++;
-      if (frameNumber >= maxFrameNum) {
-        frameNumber = minFrameNum;
-      }
-
-      frameXLeft = (frameNumber % numFramesInX) * frameWidth;
-      frameXRight = frameXLeft + frameWidth;
-      frameYBottom = (textureHeight - ((frameNumber / numFramesInX) * frameHeight)) - frameHeight;
-      frameYTop = frameYBottom + frameHeight;
-
-      frameXLeft = frameXLeft / textureWidth;
-      frameXRight = frameXRight / textureWidth;
-      frameYBottom = frameYBottom / textureHeight;
-      frameYTop = frameYTop / textureHeight;
-
-      uvs[0] = frameXLeft;
-      uvs[1] = frameYBottom;
-      uvs[2] = frameXRight;
-      uvs[3] = frameYBottom;
-      uvs[4] = frameXRight;
-      uvs[5] = frameYTop;
-      uvs[6] = frameXLeft;
-      uvs[7] = frameYTop;
     }
 
     void render(texture_shader &shader, mat4t &cameraToWorld) {
@@ -169,22 +148,14 @@ namespace octet {
       glVertexAttribPointer(attribute_pos, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)vertices);
       glEnableVertexAttribArray(attribute_pos);
 
-      // update the frame number
-      AnimateTexture();
+      calculateFrameCoords();
+      
+      uvs[0] = frameXLeft; uvs[1] = frameYBottom;
+      uvs[2] = frameXRight; uvs[3] = frameYBottom;
+      uvs[4] = frameXRight; uvs[5] = frameYTop;
+      uvs[6] = frameXLeft; uvs[7] = frameYTop;
 
-      // normalize the frame data for tex coords
-      //frameXLeft = frameXLeft / textureWidth;
-      //frameXRight = frameXRight / textureWidth;
-      //frameYBottom = frameYBottom / textureHeight;
-      //frameYTop = frameYTop / textureHeight;
-
-      // this is an array of the positions of the corners of the texture in 2D
-      //static const float uvs[] = {
-      //  frameXLeft,  frameYBottom,
-      //  frameXRight,  frameYBottom,
-      //  frameXRight,  frameYTop,
-      //  frameXLeft,  frameYTop,
-      //};
+      animateTexture();
 
       // attribute_uv is position in the texture of each corner
       // each corner (vertex) has 2 floats (x, y)
