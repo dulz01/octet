@@ -38,7 +38,7 @@ namespace octet {
       num_invaderers = num_rows * num_cols,
 
       // sprite definitions
-      ship_sprite = 0,
+      player_sprite = 0,
 
       first_invaderer_sprite,
       last_invaderer_sprite = first_invaderer_sprite + num_invaderers - 1,
@@ -152,28 +152,28 @@ namespace octet {
 
       // arrow keys
       if (is_key_down(key_left)) {
-        sprites[ship_sprite].translate(-ship_speed, 0);
-        if (sprites[ship_sprite].collides_with(sprites[first_border_sprite + 2])) {
-          sprites[ship_sprite].translate(+ship_speed, 0);
+        sprites[player_sprite].translate(-ship_speed, 0);
+        if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 2])) {
+          sprites[player_sprite].translate(+ship_speed, 0);
         }
       }
       else if (is_key_down(key_right)) {
-        sprites[ship_sprite].translate(+ship_speed, 0);
-        if (sprites[ship_sprite].collides_with(sprites[first_border_sprite + 3])) {
-          sprites[ship_sprite].translate(-ship_speed, 0);
+        sprites[player_sprite].translate(+ship_speed, 0);
+        if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 3])) {
+          sprites[player_sprite].translate(-ship_speed, 0);
         }
       }
 
       if (is_key_down(key_up)) {
-        sprites[ship_sprite].translate(0, +ship_speed);
-        if (sprites[ship_sprite].collides_with(sprites[first_border_sprite + 1])) {
-          sprites[ship_sprite].translate(0, -ship_speed);
+        sprites[player_sprite].translate(0, +ship_speed);
+        if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 1])) {
+          sprites[player_sprite].translate(0, -ship_speed);
         }
       }
       else if (is_key_down(key_down)) {
-        sprites[ship_sprite].translate(0, -ship_speed);
-        if (sprites[ship_sprite].collides_with(sprites[first_border_sprite + 0])) {
-          sprites[ship_sprite].translate(0, +ship_speed);
+        sprites[player_sprite].translate(0, -ship_speed);
+        if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
+          sprites[player_sprite].translate(0, +ship_speed);
         }
       }
 
@@ -189,7 +189,7 @@ namespace octet {
         // find a missile
         for (int i = 0; i != num_missiles; ++i) {
           if (!sprites[first_missile_sprite + i].is_enabled()) {
-            sprites[first_missile_sprite + i].set_relative(sprites[ship_sprite], 0, 0.5f);
+            sprites[first_missile_sprite + i].set_relative(sprites[player_sprite], 0, 0.5f);
             sprites[first_missile_sprite + i].is_enabled() = true;
             missiles_disabled = 5;
             ALuint source = get_sound_source();
@@ -208,7 +208,7 @@ namespace octet {
       }
       else {
         // find an invaderer
-        sprite &ship = sprites[ship_sprite];
+        sprite &ship = sprites[player_sprite];
         for (int j = randomizer.get(0, num_invaderers); j < num_invaderers; ++j) {
           sprite &invaderer = sprites[first_invaderer_sprite + j];
           if (invaderer.is_enabled() && invaderer.is_above(ship, 0.3f)) {
@@ -265,7 +265,7 @@ namespace octet {
         sprite &bomb = sprites[first_bomb_sprite + i];
         if (bomb.is_enabled()) {
           bomb.translate(0, -bomb_speed);
-          if (bomb.collides_with(sprites[ship_sprite])) {
+          if (bomb.collides_with(sprites[player_sprite])) {
             bomb.is_enabled() = false;
             bomb.translate(20, 0);
             bombs_disabled = 50;
@@ -355,8 +355,8 @@ namespace octet {
 
       font_texture = resource_dict::get_texture_handle(GL_RGBA, "assets/big_0.gif");
 
-      GLuint ship = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/ship.gif");
-      sprites[ship_sprite].init(ship, 0, -2.75f, 0.25f, 0.25f, 1, 1);
+      GLuint ship = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/4FinkGreen1.gif");
+      sprites[player_sprite].init(ship, 0, -2.75f, 0.25f, 0.25f, 12, 8);
 
       GLuint GameOver = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/GameOver.gif");
       sprites[game_over_sprite].init(GameOver, 20, 0, 3, 1.5f, 1, 1);
@@ -447,7 +447,7 @@ namespace octet {
       }
 
       // if the invaders collide with the ship then the ship loses 1 life
-      sprite &ship = sprites[ship_sprite];
+      sprite &ship = sprites[player_sprite];
       if (invaders_collide(ship)) {
         on_hit_ship();
       }

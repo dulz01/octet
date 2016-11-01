@@ -74,7 +74,7 @@ namespace octet {
         if (frameNumber >= maxFrameNum) {
           frameNumber = minFrameNum;
         }
-        frameTimer = 15;
+        frameTimer = 0;
       }
       
     }
