@@ -30,6 +30,7 @@ namespace octet {
     // animation data for the sprite
     int frameNumber;
     int frameTimer;
+    int frameSkip;
 
     // specifies the dimensions of the sprite sheet
     int numFramesInX;
@@ -62,6 +63,7 @@ namespace octet {
 
       minFrameNum = 0;
       frameTimer = 0;
+      frameSkip = 0;
     }
 
     // updates the frame number
@@ -74,7 +76,7 @@ namespace octet {
         if (frameNumber >= maxFrameNum) {
           frameNumber = minFrameNum;
         }
-        frameTimer = 0;
+        frameTimer = frameSkip;
       }
       
     }
@@ -102,7 +104,7 @@ namespace octet {
       frameYTop = frameYTop / textureHeight;
     }
 
-    void init(int _texture, float x, float y, float w, float h, int numFramesX, int numFramesY) {
+    void init(int _texture, float x, float y, float w, float h, int numFramesX, int numFramesY, int frameDelay) {
       modelToWorld.loadIdentity();
       modelToWorld.translate(x, y, 0);
       halfWidth = w * 0.5f;
@@ -112,6 +114,7 @@ namespace octet {
 
       // animation data
       frameNumber = 0;
+      frameSkip = frameDelay;
       numFramesInX = numFramesX;
       numFramesInY = numFramesY;
       textureWidth = w;
