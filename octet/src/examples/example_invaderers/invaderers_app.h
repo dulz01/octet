@@ -360,8 +360,8 @@ namespace octet {
       GLuint background = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/background.gif");
       sprites[background_sprite].init(background, 0, 0, 6.0f, 6.0f, 1, 1);
 
-      GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/4FinkGreen1.gif");
-      sprites[player_sprite].init(player, 0, -2.75f, 0.25f, 0.25f, 12, 8);
+      GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/4FinkYellow1.gif");
+      sprites[player_sprite].init(player, 0, -2.75f, 0.375f, 0.5f, 12, 8);
 
       GLuint GameOver = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/GameOver.gif");
       sprites[game_over_sprite].init(GameOver, 20, 0, 3, 1.5f, 1, 1);
