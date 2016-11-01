@@ -38,7 +38,9 @@ namespace octet {
       num_invaderers = num_rows * num_cols,
 
       // sprite definitions
-      player_sprite = 0,
+      background_sprite = 0,
+
+      player_sprite,
 
       first_invaderer_sprite,
       last_invaderer_sprite = first_invaderer_sprite + num_invaderers - 1,
@@ -354,6 +356,9 @@ namespace octet {
       cameraToWorld.translate(0, 0, 3);
 
       font_texture = resource_dict::get_texture_handle(GL_RGBA, "assets/big_0.gif");
+
+      GLuint background = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/background.gif");
+      sprites[background_sprite].init(background, 0, 0, 6.0f, 6.0f, 1, 1);
 
       GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/4FinkGreen1.gif");
       sprites[player_sprite].init(player, 0, -2.75f, 0.25f, 0.25f, 12, 8);
