@@ -146,7 +146,7 @@ namespace octet {
       }
     }
 
-    // use the keyboard to move the ship
+    // use the keyboard to move the player
     void move_ship() {
       const float ship_speed = 0.05f;
 
@@ -355,8 +355,8 @@ namespace octet {
 
       font_texture = resource_dict::get_texture_handle(GL_RGBA, "assets/big_0.gif");
 
-      GLuint ship = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/4FinkGreen1.gif");
-      sprites[player_sprite].init(ship, 0, -2.75f, 0.25f, 0.25f, 12, 8);
+      GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/4FinkGreen1.gif");
+      sprites[player_sprite].init(player, 0, -2.75f, 0.25f, 0.25f, 12, 8);
 
       GLuint GameOver = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/GameOver.gif");
       sprites[game_over_sprite].init(GameOver, 20, 0, 3, 1.5f, 1, 1);
@@ -446,7 +446,7 @@ namespace octet {
         move_invaders(0, invader_velocity_y);
       }
 
-      // if the invaders collide with the ship then the ship loses 1 life
+      // if the invaders collide with the player then the player loses 1 life
       sprite &ship = sprites[player_sprite];
       if (invaders_collide(ship)) {
         on_hit_ship();
