@@ -29,6 +29,7 @@ namespace octet {
 
     // animation data for the sprite
     int frameNumber;
+    int frameTimer;
 
     // specifies the dimensions of the sprite sheet
     int numFramesInX;
@@ -60,14 +61,22 @@ namespace octet {
       enabled = true;
 
       minFrameNum = 0;
+      frameTimer = 0;
     }
 
     // updates the frame number
     void animateTexture() {
-      frameNumber++;
-      if (frameNumber >= maxFrameNum) {
-        frameNumber = minFrameNum;
+      if (frameTimer) {
+        --frameTimer;
       }
+      else {
+        frameNumber++;
+        if (frameNumber >= maxFrameNum) {
+          frameNumber = minFrameNum;
+        }
+        frameTimer = 15;
+      }
+      
     }
 
     void calculateFrameCoords() {
