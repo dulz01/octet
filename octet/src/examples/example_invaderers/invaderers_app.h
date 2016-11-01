@@ -150,33 +150,37 @@ namespace octet {
 
     // use the keyboard to move the player
     void move_ship() {
-      const float ship_speed = 0.05f;
+      const float player_speed = 0.05f;
 
       // arrow keys
       if (is_key_down(key_left)) {
-        sprites[player_sprite].translate(-ship_speed, 0);
+        sprites[player_sprite].translate(-player_speed, 0);
         if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 2])) {
-          sprites[player_sprite].translate(+ship_speed, 0);
+          sprites[player_sprite].translate(+player_speed, 0);
         }
+        sprites[player_sprite].setFrameRange(48, 71);
       }
       else if (is_key_down(key_right)) {
-        sprites[player_sprite].translate(+ship_speed, 0);
+        sprites[player_sprite].translate(+player_speed, 0);
         if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 3])) {
-          sprites[player_sprite].translate(-ship_speed, 0);
+          sprites[player_sprite].translate(-player_speed, 0);
         }
+        sprites[player_sprite].setFrameRange(24, 47);
       }
 
       if (is_key_down(key_up)) {
-        sprites[player_sprite].translate(0, +ship_speed);
+        sprites[player_sprite].translate(0, +player_speed);
         if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 1])) {
-          sprites[player_sprite].translate(0, -ship_speed);
+          sprites[player_sprite].translate(0, -player_speed);
         }
+        sprites[player_sprite].setFrameRange(0, 23);
       }
       else if (is_key_down(key_down)) {
-        sprites[player_sprite].translate(0, -ship_speed);
+        sprites[player_sprite].translate(0, -player_speed);
         if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
-          sprites[player_sprite].translate(0, +ship_speed);
+          sprites[player_sprite].translate(0, +player_speed);
         }
+        sprites[player_sprite].setFrameRange(72, 95);
       }
 
 

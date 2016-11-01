@@ -104,6 +104,15 @@ namespace octet {
       frameYTop = frameYTop / textureHeight;
     }
 
+    void setFrameRange(int minFrameNo, int maxFrameNo) {
+      minFrameNum = minFrameNo;
+      maxFrameNum = maxFrameNo;
+
+      if (frameNumber < minFrameNum || frameNumber > maxFrameNum) {
+        frameNumber = minFrameNo;
+      }
+    }
+
     void init(int _texture, float x, float y, float w, float h, int numFramesX, int numFramesY, int frameDelay) {
       modelToWorld.loadIdentity();
       modelToWorld.translate(x, y, 0);
