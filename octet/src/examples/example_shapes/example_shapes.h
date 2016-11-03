@@ -29,25 +29,25 @@ namespace octet {
       material *yellow = new material(vec4(1, 1, 0, 1));
 
       mat4t mat;
-      mat.translate(-3, 6, 0);
-      app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), red, true);
+      //mat.translate(-3, 6, 0);
+      //app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), red, true);
 
-      mat.loadIdentity();
-      mat.translate(0, 10, 0);
-      app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), red, true);
+      //mat.loadIdentity();
+      //mat.translate(0, 10, 0);
+      //app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), red, true);
 
-      mat.loadIdentity();
-      mat.translate(3, 6, 0);
-      app_scene->add_shape(mat, new mesh_cylinder(zcylinder(vec3(0, 0, 0), 2, 4)), blue, true);
+      //mat.loadIdentity();
+      //mat.translate(3, 6, 0);
+      //app_scene->add_shape(mat, new mesh_cylinder(zcylinder(vec3(0, 0, 0), 2, 4)), blue, true);
 
-      mat.loadIdentity();
-      mat.translate(0, 0, 0);
-      app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), yellow, true);
+      //mat.loadIdentity();
+      //mat.translate(0, 0, 0);
+      //app_scene->add_shape(mat, new mesh_box(vec3(2, 2, 2)), yellow, true);
 
-      // ground
-      mat.loadIdentity();
-      mat.translate(0, -1, 0);
-      app_scene->add_shape(mat, new mesh_box(vec3(200, 1, 200)), green, false);
+      //// ground
+      //mat.loadIdentity();
+      //mat.translate(0, -1, 0);
+      //app_scene->add_shape(mat, new mesh_box(vec3(200, 1, 200)), green, false);
     }
 
     /// this is called to draw the world
