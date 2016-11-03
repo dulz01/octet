@@ -334,12 +334,10 @@ namespace octet { namespace scene {
       return result;
     }
 
-#ifdef OCTET_ BULLET
+#ifdef OCTET_BULLET
     void addSpring(btRigidBody *rbA, btRigidBody *rbB, btTransform tran1, btTransform tran2) {
       btGeneric6DofSpringConstraint* spring = new btGeneric6DofSpringConstraint(*rbA, *rbB, tran1, tran2, true);
 
-      spring->setAngularLowerLimit(btVector3(0, 0, 0));
-      spring->setAngularUpperLimit(btVector3(0, 0, 0));
       spring->setLinearLowerLimit(btVector3(0, 0, 0));
       spring->setLinearUpperLimit(btVector3(0, 0, 0));
 

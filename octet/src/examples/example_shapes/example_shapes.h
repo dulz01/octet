@@ -48,6 +48,23 @@ namespace octet {
       //mat.loadIdentity();
       //mat.translate(0, -1, 0);
       //app_scene->add_shape(mat, new mesh_box(vec3(200, 1, 200)), green, false);
+
+      mat.loadIdentity();
+      mat.translate(0, 6, 0);
+      mesh_instance * pin = app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), red, false);
+      btRigidBody * rigid_body1 = pin->get_node()->get_rigid_body();
+      
+      mat.loadIdentity();
+      mat.translate(10, 3, 0);
+      mesh_instance * ball = app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), green, true);
+      btRigidBody * rigid_body2 = ball->get_node()->get_rigid_body();
+
+      btTransform tran1 = btTransform::getIdentity();
+      tran1.setOrigin(btVector3(0, 0, 0));
+
+      btTransform tran2 = btTransform::getIdentity();
+      tran2.setOrigin(btVector3(-10, 3, 0));
+      app_scene->addSpring(rigid_body1, rigid_body2, tran1, tran2);
     }
 
     /// this is called to draw the world
