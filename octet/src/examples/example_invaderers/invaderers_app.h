@@ -160,12 +160,19 @@ namespace octet {
         }
         sprites[player_sprite].setFrameRange(48, 71);
       }
-      else if (is_key_down(key_right)) {
+      else if (is_key_going_up(key_left)) {
+        sprites[player_sprite].setFrameRange(48, 48);
+      }
+
+      if (is_key_down(key_right)) {
         sprites[player_sprite].translate(+player_speed, 0);
         if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 3])) {
           sprites[player_sprite].translate(-player_speed, 0);
         }
         sprites[player_sprite].setFrameRange(24, 47);
+      }
+      else if (is_key_going_up(key_right)) {
+        sprites[player_sprite].setFrameRange(24, 24);
       }
 
       if (is_key_down(key_up)) {
@@ -175,15 +182,20 @@ namespace octet {
         }
         sprites[player_sprite].setFrameRange(0, 23);
       }
-      else if (is_key_down(key_down)) {
+      else if (is_key_going_up(key_up)) {
+        sprites[player_sprite].setFrameRange(0, 0);
+      }
+
+      if (is_key_down(key_down)) {
         sprites[player_sprite].translate(0, -player_speed);
         if (sprites[player_sprite].collides_with(sprites[first_border_sprite + 0])) {
           sprites[player_sprite].translate(0, +player_speed);
         }
         sprites[player_sprite].setFrameRange(72, 95);
       }
-
-
+      else if (is_key_going_up(key_down)) {
+        sprites[player_sprite].setFrameRange(72, 72);
+      }
     }
 
     // fire button (space)
@@ -366,6 +378,7 @@ namespace octet {
 
       GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/4FinkYellow1.gif");
       sprites[player_sprite].init(player, 0, -2.75f, 0.375f, 0.5f, 12, 8, 0);
+      sprites[player_sprite].setFrameRange(0, 0);
 
       GLuint GameOver = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/GameOver.gif");
       sprites[game_over_sprite].init(GameOver, 20, 0, 3, 1.5f, 1, 1, 0);
