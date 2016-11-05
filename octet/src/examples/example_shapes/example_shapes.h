@@ -30,16 +30,28 @@ namespace octet {
 
       mat4t mat;
 
+      //-----------------------------------------------------------------------
+      // bridge
+      //-----------------------------------------------------------------------
       mat.loadIdentity();
-      mat.translate(-10, 6, 0);
-      mesh_instance * pin = app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), red, false);
-      btRigidBody * rigid_body1 = pin->get_node()->get_rigid_body();
+      mat.translate(-10, 0, 0);
+      mesh_instance *left_ground = app_scene->add_shape(mat, new mesh_box(vec3(1, 1, 20), 1), red, false);
 
-      mat.loadIdentity();
-      mat.translate(10, 3, 0);
-      mesh_instance * ball = app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), green, true);
-      btRigidBody * rigid_body2 = ball->get_node()->get_rigid_body();
 
+      //-----------------------------------------------------------------------
+      // Test spheres
+      //-----------------------------------------------------------------------
+      //mat.loadIdentity();
+      //mat.translate(-10, 6, 0);
+      //mesh_instance * pin = app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), red, false);
+      //btRigidBody * rigid_body1 = pin->get_node()->get_rigid_body();
+
+      //mat.loadIdentity();
+      //mat.translate(10, 3, 0);
+      //mesh_instance * ball = app_scene->add_shape(mat, new mesh_sphere(vec3(2, 2, 2), 2), green, true);
+      //btRigidBody * rigid_body2 = ball->get_node()->get_rigid_body();
+      //-----------------------------------------------------------------------
+      
       // for the point2point constraint
       btVector3 pivotInA = btVector3(0, 0, 0);
       btVector3 pivotInB = btVector3(-10, 0, 0);
@@ -56,7 +68,7 @@ namespace octet {
       //app_scene->applySpring(rigid_body1, rigid_body2, tran1, tran2);
 
       // for the hinge constraint
-      app_scene->applyHinge(rigid_body2, btVector3(0, 10, 0), btVector3(0, 1.0f, 0));
+      //app_scene->applyHinge(rigid_body2, btVector3(0, 10, 0), btVector3(0, 1.0f, 0));
       
     }
 
