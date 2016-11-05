@@ -335,7 +335,7 @@ namespace octet { namespace scene {
     }
 
 #ifdef OCTET_BULLET
-    void addSpring(btRigidBody *rbA, btRigidBody *rbB, btTransform tran1, btTransform tran2) {
+    void applySpring(btRigidBody *rbA, btRigidBody *rbB, btTransform tran1, btTransform tran2) {
       btGeneric6DofSpringConstraint* spring = new btGeneric6DofSpringConstraint(*rbA, *rbB, tran1, tran2, true);
 
       spring->setLinearLowerLimit(btVector3(0, 0, 0));
@@ -343,6 +343,19 @@ namespace octet { namespace scene {
 
       spring->enableSpring(0, true);
       world->addConstraint(spring);
+    }
+
+    void applyPoint2PointConstraint(btRigidBody *rbA, btRigidBody *rbB, btVector3 pivotInA, btVector3 pivotInB) {
+      btPoint2PointConstraint* p2p = new btPoint2PointConstraint(*rbA, *rbB, pivotInA, pivotInB);
+
+      p2p->setEnabled(true);
+      world->addConstraint(p2p);
+    }
+
+    void applyHinge(btRigidBody *rbA, btVector3 pivotInA, btVector3 axisInA) {
+      btHingeConstraint* hinge = new btHingeConstraint(*rbA, pivotInA, axisInA);
+
+      world->addConstraint(hinge);
     }
 #endif
 
