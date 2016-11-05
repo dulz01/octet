@@ -10,6 +10,8 @@ namespace octet {
     // scene for drawing box
     ref<visual_scene> app_scene;
 
+    btRigidBody *bridge[11];
+
   public:
     example_shapes(int argc, char **argv) : app(argc, argv) {
     }
@@ -36,91 +38,98 @@ namespace octet {
       mat.loadIdentity();
       mat.translate(-14, 0, 0);
       mesh_instance *left_ground = app_scene->add_shape(mat, new mesh_box(vec3(1, 1, 20), 1), red, false);
-      btRigidBody *rb_left_ground = left_ground->get_node()->get_rigid_body();
+      bridge[0] = left_ground->get_node()->get_rigid_body();
 
-      mat.loadIdentity();
-      mat.translate(-8, 0, 0);
-      mesh_instance *plank1 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
-      btRigidBody *rb_plank1 = plank1->get_node()->get_rigid_body();
+      for (int i = 1; i != sizeof(bridge) - 1; ++i) {
+        mat.loadIdentity();
+        mat.translate(-14 + (i * 2), 0, 0);
+        mesh_instance *m = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, false);
+        bridge[i] = m->get_node()->get_rigid_body();
+      }
 
-      mat.loadIdentity();
-      mat.translate(-6, 0, 0);
-      mesh_instance *plank2 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
-      btRigidBody *rb_plank2 = plank2->get_node()->get_rigid_body();
+      //mat.loadIdentity();
+      //mat.translate(-8, 0, 0);
+      //mesh_instance *plank1 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
+      //btRigidBody *rb_plank1 = plank1->get_node()->get_rigid_body();
 
-      mat.loadIdentity();
-      mat.translate(-4, 0, 0);
-      mesh_instance *plank3 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
-      btRigidBody *rb_plank3 = plank3->get_node()->get_rigid_body();
+      //mat.loadIdentity();
+      //mat.translate(-6, 0, 0);
+      //mesh_instance *plank2 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
+      //btRigidBody *rb_plank2 = plank2->get_node()->get_rigid_body();
 
-      mat.loadIdentity();
-      mat.translate(-2, 0, 0);
-      mesh_instance *plank4 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
-      btRigidBody *rb_plank4 = plank4->get_node()->get_rigid_body();
+      //mat.loadIdentity();
+      //mat.translate(-4, 0, 0);
+      //mesh_instance *plank3 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
+      //btRigidBody *rb_plank3 = plank3->get_node()->get_rigid_body();
 
-      mat.loadIdentity();
-      mat.translate(0, 0, 0);
-      mesh_instance *plank5 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
-      btRigidBody *rb_plank5 = plank5->get_node()->get_rigid_body();
+      //mat.loadIdentity();
+      //mat.translate(-2, 0, 0);
+      //mesh_instance *plank4 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
+      //btRigidBody *rb_plank4 = plank4->get_node()->get_rigid_body();
 
-      mat.loadIdentity();
-      mat.translate(2, 0, 0);
-      mesh_instance *plank6 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
-      btRigidBody *rb_plank6 = plank6->get_node()->get_rigid_body();
+      //mat.loadIdentity();
+      //mat.translate(0, 0, 0);
+      //mesh_instance *plank5 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
+      //btRigidBody *rb_plank5 = plank5->get_node()->get_rigid_body();
 
-      mat.loadIdentity();
-      mat.translate(4, 0, 0);
-      mesh_instance *plank7 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
-      btRigidBody *rb_plank7 = plank7->get_node()->get_rigid_body();
+      //mat.loadIdentity();
+      //mat.translate(2, 0, 0);
+      //mesh_instance *plank6 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
+      //btRigidBody *rb_plank6 = plank6->get_node()->get_rigid_body();
 
-      mat.loadIdentity();
-      mat.translate(6, 0, 0);
-      mesh_instance *plank8 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
-      btRigidBody *rb_plank8 = plank8->get_node()->get_rigid_body();
+      //mat.loadIdentity();
+      //mat.translate(4, 0, 0);
+      //mesh_instance *plank7 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
+      //btRigidBody *rb_plank7 = plank7->get_node()->get_rigid_body();
 
-      mat.loadIdentity();
-      mat.translate(8, 0, 0);
-      mesh_instance *plank9 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
-      btRigidBody *rb_plank9 = plank9->get_node()->get_rigid_body();
+      //mat.loadIdentity();
+      //mat.translate(6, 0, 0);
+      //mesh_instance *plank8 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
+      //btRigidBody *rb_plank8 = plank8->get_node()->get_rigid_body();
+
+      //mat.loadIdentity();
+      //mat.translate(8, 0, 0);
+      //mesh_instance *plank9 = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
+      //btRigidBody *rb_plank9 = plank9->get_node()->get_rigid_body();
 
       mat.loadIdentity();
       mat.translate(14, 0, 0);
       mesh_instance *right_ground = app_scene->add_shape(mat, new mesh_box(vec3(1, 1, 20), 1), red, false);
-      btRigidBody *rb_right_ground = right_ground->get_node()->get_rigid_body();
+      bridge[10] = right_ground->get_node()->get_rigid_body();
       
-      btTransform tran1 = btTransform::getIdentity();
-      tran1.setOrigin(btVector3(0.8f, 0, 8.0f));
+      //btTransform tran1 = btTransform::getIdentity();
+      //tran1.setOrigin(btVector3(0.8f, 0, 48.0f));
 
-      btTransform tran2 = btTransform::getIdentity();
-      tran2.setOrigin(btVector3(-0.8f, 0, 8.0f));
+      //btTransform tran2 = btTransform::getIdentity();
+      //tran2.setOrigin(btVector3(-0.8f, 0, 48.0f));
 
-      app_scene->applySpring(rb_left_ground, rb_plank1, tran1, tran2);
-      app_scene->applySpring(rb_plank1, rb_plank2, tran1, tran2);
-      app_scene->applySpring(rb_plank2, rb_plank3, tran1, tran2);
-      app_scene->applySpring(rb_plank3, rb_plank4, tran1, tran2);
-      app_scene->applySpring(rb_plank4, rb_plank5, tran1, tran2);
-      app_scene->applySpring(rb_plank5, rb_plank6, tran1, tran2);
-      app_scene->applySpring(rb_plank6, rb_plank7, tran1, tran2);
-      app_scene->applySpring(rb_plank7, rb_plank8, tran1, tran2);
-      app_scene->applySpring(rb_plank8, rb_plank9, tran1, tran2);
-      app_scene->applySpring(rb_plank9, rb_right_ground, tran1, tran2);
+      //app_scene->applySpring(rb_left_ground, rb_plank1, tran1, tran2);
+      //app_scene->applySpring(rb_plank1, rb_plank2, tran1, tran2);
+      //app_scene->applySpring(rb_plank2, rb_plank3, tran1, tran2);
+      //app_scene->applySpring(rb_plank3, rb_plank4, tran1, tran2);
+      //app_scene->applySpring(rb_plank4, rb_plank5, tran1, tran2);
+      //app_scene->applySpring(rb_plank5, rb_plank6, tran1, tran2);
+      //app_scene->applySpring(rb_plank6, rb_plank7, tran1, tran2);
+      //app_scene->applySpring(rb_plank7, rb_plank8, tran1, tran2);
+      //app_scene->applySpring(rb_plank8, rb_plank9, tran1, tran2);
+      //app_scene->applySpring(rb_plank9, rb_right_ground, tran1, tran2);
 
-      tran1 = btTransform::getIdentity();
-      tran1.setOrigin(btVector3(0.8f, 0, -8.0f));
+      //tran1 = btTransform::getIdentity();
+      //tran1.setOrigin(btVector3(0.8f, 0, -48.0f));
 
-      tran2 = btTransform::getIdentity();
-      tran2.setOrigin(btVector3(-0.8f, 0, -8.0f));
+      //tran2 = btTransform::getIdentity();
+      //tran2.setOrigin(btVector3(-0.8f, 0, -48.0f));
 
-      app_scene->applySpring(rb_left_ground, rb_plank1, tran1, tran2);
-      app_scene->applySpring(rb_plank1, rb_plank2, tran1, tran2);
-      app_scene->applySpring(rb_plank2, rb_plank3, tran1, tran2);
-      app_scene->applySpring(rb_plank3, rb_plank4, tran1, tran2);
-      app_scene->applySpring(rb_plank4, rb_plank5, tran1, tran2);
-      app_scene->applySpring(rb_plank5, rb_plank6, tran1, tran2);
-      app_scene->applySpring(rb_plank6, rb_plank7, tran1, tran2);
-      app_scene->applySpring(rb_plank7, rb_plank8, tran1, tran2);
-      app_scene->applySpring(rb_plank8, rb_plank9, tran1, tran2);
-      app_scene->applySpring(rb_plank9, rb_right_ground, tran1, tran2);
+      //app_scene->applySpring(rb_left_ground, rb_plank1, tran1, tran2);
+      //app_scene->applySpring(rb_plank1, rb_plank2, tran1, tran2);
+      //app_scene->applySpring(rb_plank2, rb_plank3, tran1, tran2);
+      //app_scene->applySpring(rb_plank3, rb_plank4, tran1, tran2);
+      //app_scene->applySpring(rb_plank4, rb_plank5, tran1, tran2);
+      //app_scene->applySpring(rb_plank5, rb_plank6, tran1, tran2);
+      //app_scene->applySpring(rb_plank6, rb_plank7, tran1, tran2);
+      //app_scene->applySpring(rb_plank7, rb_plank8, tran1, tran2);
+      //app_scene->applySpring(rb_plank8, rb_plank9, tran1, tran2);
+      //app_scene->applySpring(rb_plank9, rb_right_ground, tran1, tran2);
       //-----------------------------------------------------------------------
 
       //-----------------------------------------------------------------------
