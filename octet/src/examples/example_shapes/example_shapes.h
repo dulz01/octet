@@ -37,7 +37,45 @@ namespace octet {
       mat.translate(-10, 0, 0);
       mesh_instance *left_ground = app_scene->add_shape(mat, new mesh_box(vec3(1, 1, 20), 1), red, false);
 
+      mat.loadIdentity();
+      mat.translate(-8, 0, 0);
+      mesh_instance *plank1 = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 20), 1), green, false);
 
+      mat.loadIdentity();
+      mat.translate(-6, 0, 0);
+      mesh_instance *plank2 = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 20), 1), green, false);
+
+      mat.loadIdentity();
+      mat.translate(-4, 0, 0);
+      mesh_instance *plank3 = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 20), 1), green, false);
+
+      mat.loadIdentity();
+      mat.translate(-2, 0, 0);
+      mesh_instance *plank4 = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 20), 1), green, false);
+
+      mat.loadIdentity();
+      mat.translate(0, 0, 0);
+      mesh_instance *plank5 = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 20), 1), green, false);
+
+      mat.loadIdentity();
+      mat.translate(2, 0, 0);
+      mesh_instance *plank6 = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 20), 1), green, false);
+
+      mat.loadIdentity();
+      mat.translate(4, 0, 0);
+      mesh_instance *plank7 = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 20), 1), green, false);
+
+      mat.loadIdentity();
+      mat.translate(6, 0, 0);
+      mesh_instance *plank8 = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 20), 1), green, false);
+
+      mat.loadIdentity();
+      mat.translate(8, 0, 0);
+      mesh_instance *plank9 = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 20), 1), green, false);
+
+      mat.loadIdentity();
+      mat.translate(10, 0, 0);
+      mesh_instance *right_ground = app_scene->add_shape(mat, new mesh_box(vec3(1, 1, 20), 1), red, false);
       //-----------------------------------------------------------------------
       // Test spheres
       //-----------------------------------------------------------------------
