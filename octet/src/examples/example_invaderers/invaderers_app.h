@@ -373,9 +373,11 @@ namespace octet {
 
       font_texture = resource_dict::get_texture_handle(GL_RGBA, "assets/big_0.gif");
 
+      // texture image was taken from: http://www.andysowards.com/blog/2012/80-epic-pixel-art-tutorials/
       GLuint background = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/background.gif");
       sprites[background_sprite].init(background, 0, 0, 6.0f, 6.0f, 1, 1, 0);
 
+      // texture image was taken and edited from: http://zeldauniverse.net/forums/Thread/26188-Element-of-the-Hero/
       GLuint player = resource_dict::get_texture_handle(GL_RGBA, "assets/invaderers/4FinkYellow1.gif");
       sprites[player_sprite].init(player, 0, -2.75f, 0.375f, 0.5f, 12, 8, 0);
       sprites[player_sprite].setFrameRange(0, 0);
