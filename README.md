@@ -45,7 +45,7 @@ For the pause button, it was initially assigned to the Esc key and the word 'Pau
 ## Y-axis movement
 This is a relatively simple change made to the invaderers and the player. For the invaderers, I just added a value in the move_invaderers() function for the Y-axis. For the player, I've added two more if statements for up and down movement.
 
-# Collision detection
+## Collision detection
 Now that the player and the enemy has Y-axis movement, the borders on the top and bottom of the game will have to keep them in. The collision detection code for invaderers live in the simulate() function while the collision detection code for the player is kept where the player makes inputs.
 
     sprite &border = sprites[first_border_sprite + (invader_velocity < 0 ? 2 : 3)];
