@@ -118,7 +118,7 @@ namespace octet {
     }
 
     // called when we are hit
-    void on_hit_ship() {
+    void on_hit_player() {
 
       if (player_collision_disabled) {
         --player_collision_disabled;
@@ -149,7 +149,7 @@ namespace octet {
     }
 
     // use the keyboard to move the player
-    void move_ship() {
+    void move_player() {
       const float player_speed = 0.05f;
 
       // arrow keys
@@ -287,7 +287,7 @@ namespace octet {
             bomb.is_enabled() = false;
             bomb.translate(20, 0);
             bombs_disabled = 50;
-            on_hit_ship();
+            on_hit_player();
             player_collision_disabled = 0;
 
             goto next_bomb;
@@ -444,7 +444,7 @@ namespace octet {
         return;
       }
 
-      move_ship();
+      move_player();
 
       fire_missiles();
 
@@ -471,7 +471,7 @@ namespace octet {
       // if the invaders collide with the player then the player loses 1 life
       sprite &ship = sprites[player_sprite];
       if (invaders_collide(ship)) {
-        on_hit_ship();
+        on_hit_player();
       }
 
     }
