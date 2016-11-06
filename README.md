@@ -30,6 +30,7 @@ of coding codecs such as GIF, JPEG, ZIP and so on.
 ## Brief
 To take the base game from example_invaderers and modify it into a different game.
 The project directory is: octet\octet\src\examples\example_invaderers
+[Video link](https://youtu.be/Bep4o-j899k "Gameplay demonstration")
 
 ## Introduction
 The game is a Zelda clone and the aim is to modify the game enough that it closely follows the mechanics of Zelda.
@@ -109,6 +110,7 @@ The range of frames to be used for the animations can also be set as shown with 
 ## Brief
 Using example_shapes as the starting point, build a dynamic structure similar to a rope bridge that uses spring constraints.
 The project directory is: octet\octet\src\examples\example_shapes
+[Video Link](https://youtu.be/LxB24zDqcY0 "Video demonstration")
 
 ## Introduction
 The Bullet Physics library is an open source library that handles collision detection, rigid body dynamics and soft body dynamics. It's designed for games, visual effects and robotic simulations. This project will demonstrate constraint and rigid body interactions in a dynamic world. 
