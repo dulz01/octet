@@ -92,7 +92,7 @@ I've added a player_collision_disabled variable to the on_hit_player() function.
 ## Animating sprites
 To animate the sprites, I found a post by TheNut at http://forum.devmaster.net/t/spritesheet-animation-in-opengl/24020 that outlines how I should think about building an animated sprite system in OpenGL. I investigated the code to look for where the UVs will be defined. I found them to be in sprite::render before they were pushed to the shader. Modifying the values led me to discover that the texture coordinates start from the bottom left. While keeping that information in the back of my mind, I started to develop the sprite animation code.
 
-![Alt text](texture-coordinates.PNG "The coordinates start from the bottom left") 
+![Alt text](texture-coordinates.png "The coordinates start from the bottom left") 
 
 To avoid confusion while programming, the sprite class was separated into its own file and #included into invaderers_app.h. While TheNut on the Devmaster forum suggested having an XML file accompanying the sprite sheet, I decided on a simpler system where the sprites are laid out uniformly in a grid. The calculations for the positions and size for each frame of the sprite sheet will be done as the texture is loaded into the game.
 
