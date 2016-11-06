@@ -34,11 +34,13 @@ namespace octet {
       mat4t mat;
             
       // building the bridge
+      // left ground
       mat.loadIdentity();
       mat.translate(-14, 0, 0);
       mesh_instance *left_ground = app_scene->add_shape(mat, new mesh_box(vec3(1, 1, 20), 1), red, false);
       bridge[0] = left_ground->get_node()->get_rigid_body();
 
+      // planks
       for (int i = 1; i != numObjects - 1; ++i) {
         mat.loadIdentity();
         mat.translate(-12 + (i * 2), 0, 0);
@@ -46,10 +48,11 @@ namespace octet {
         bridge[i] = m->get_node()->get_rigid_body();
       }
 
+      // right ground
       mat.loadIdentity();
       mat.translate(14, 0, 0);
       mesh_instance *right_ground = app_scene->add_shape(mat, new mesh_box(vec3(1, 1, 20), 1), red, false);
-      bridge[10] = right_ground->get_node()->get_rigid_body();
+      bridge[numObjects - 1] = right_ground->get_node()->get_rigid_body();
       
       // setting up the constraints
       btTransform tran1 = btTransform::getIdentity();
@@ -58,7 +61,7 @@ namespace octet {
       btTransform tran2 = btTransform::getIdentity();
       tran2.setOrigin(btVector3(-0.8f, 0, 18.0f));
 
-      for (int i = 0; i != numObjects - 1; ++i) {
+      for (int i = 0; i < numObjects - 1; ++i) {
         app_scene->applySpring(bridge[i], bridge[i + 1], tran1, tran2);
       }
 
@@ -68,7 +71,7 @@ namespace octet {
       tran2 = btTransform::getIdentity();
       tran2.setOrigin(btVector3(-0.8f, 0, -18.0f));
 
-      for (int i = 0; i != numObjects - 1; ++i) {
+      for (int i = 0; i < numObjects - 1; ++i) {
         app_scene->applySpring(bridge[i], bridge[i + 1], tran1, tran2);
       }      
     }
