@@ -88,25 +88,25 @@ namespace octet {
 
     // spawns cubes to collide with the bridge
     void spawnObjects() {
-      if (is_key_going_down(key_q)) {
+      if (is_key_down(key_q)) {
         mat.loadIdentity();
         mat.translate(-9, 5, 3);
         app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), red, true);
       }
 
-      if (is_key_going_down(key_w)) {
+      if (is_key_down(key_w)) {
         mat.loadIdentity();
         mat.translate(-4, 5, 3);
         app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), yellow, true);
       }
 
-      if (is_key_going_down(key_e)) {
+      if (is_key_down(key_e)) {
         mat.loadIdentity();
         mat.translate(0, 5, 3);
         app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), pink, true);
       }
 
-      if (is_key_going_down(key_r)) {
+      if (is_key_down(key_r)) {
         mat.loadIdentity();
         mat.translate(6, 5, 3);
         app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), blue, true);
@@ -129,12 +129,6 @@ namespace octet {
         mat.translate(0, 5, -3);
         app_scene->add_shape(mat, new mesh_box(vec3(1.0f, 1.0f, 1.0f), 1), yellow, true);
       }
-
-      //if (is_key_going_down(key_f)) {
-      //  mat.loadIdentity();
-      //  mat.translate(6, 5, 0);
-      //  app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), red, true);
-      //}
     }
 
     /// this is called to draw the world

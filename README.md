@@ -29,6 +29,7 @@ of coding codecs such as GIF, JPEG, ZIP and so on.
 
 ## Brief
 To take the base game from example_invaderers and modify it into a different game.
+The project directory is: octet\octet\src\examples\example_invaderers
 
 ## Introduction
 The game is a Zelda clone and the aim is to modify the game enough that it closely follows the mechanics of Zelda.
@@ -101,3 +102,43 @@ To avoid confusion while programming, the sprite class was separated into its ow
 The sprite is animated by assigning a frame number to each frame of the sprite sheet. As the frame number is iterated through, the coordinates for the corners of the frame are updated and sent through to the shader. The frame size is calculated by determining the number of frames in a row and in a column. The frame width and height as well as the texture width and height are then used to determine the top, bottom, left and right edges of the frame. These will be the coordinates that will be sent to the shader, instead of the whole texture. One thing to take note of is the way the texture coordinates are set up in OpenGL ES. Because the coordinates start from the bottom left, advancing through the sprite sheet would be (x++, y--). 
 
 The range of frames to be used for the animations can also be set as shown with the player's orientation affecting the direction the character is facing. These are a result of the sprite sheet containing animations for these directions. While implementing the sprite animation, I found that even when the player is idle, the animation still continues. I rectified this by setting the minimum frame number and the maximum frame number to be the same. This triggers when the input is released so the player will face and stay idle in the direction he is facing.
+
+
+# Rope Bridge using Bullet Physics SDK
+
+## Brief
+Using example_shapes as the starting point, build a dynamic structure similar to a rope bridge that uses spring constraints.
+The project directory is: octet\octet\src\examples\example_shapes
+
+## Introduction
+The Bullet Physics library is an open source library that handles collision detection, rigid body dynamics and soft body dynamics. It's designed for games, visual effects and robotic simulations. This project will demonstrate constraint and rigid body interactions in a dynamic world. 
+
+## Rigid Bodies
+Bullet puts the rigid body dynamics on top of the collision detection module. Adding forces, mass, inertia, velocity and constraints. Bullet uses a type called btRigid body to simulate moving objects. btRigidbody inherits from btCollisionObject which means that it inherit the world transform, friction and restitution. The type adds linear and angular velocity. 
+
+There are three types of objects in Bullet: Dynamic rigidbodies, Static rigidbodies and kinematic rigidbodies. Dynamic rigidbodies are objects that have a positive mass and every step of the simulation fram will update its world transform. Static rigidbodies have zero mass and cannot move. Static rigidbodies are only able to collide with other objects. Kinematic rigidbodies are like static rigidbodies but the difference being that the user can animate it. It can affect dynamic objects but the dynamic objects won't have any effect on it.
+
+## Types of Constraints
+Constraints in Bullet are derived from btTypedConstraints. The constraints consists of: btHingeConstraint, btPoint2PointConstraint, btConeTwistConstraint, btSliderConstraint and btGeneric6DofSpringConstraint. Constraints works between two rigid bodies and one of the two rigidbodies will have to be dynamic.
+
+The hinge constraint restricts three angular degrees of freed so that the rigid bodies can only rotate around one axis. It's used for doors or wheels rotating on one axis. 
+
+![Alt text](HingeConstraint.png "Hinge Constraint.") 
+
+The point to point constraint limits the translation so the pivot points of two rigid bodies will match in world space. You can connect a chain of rigid bodies with this constraint.
+
+![Alt text](Point2PointConstraint.png "Point to Point Constraint.") 
+
+The cone twist constraint is useful if you want to animate things like the forearms of a character. It's a special point to point constraint that has cone and twist axis limits. The X-axis serves as the twist axis.
+
+The slide constraint allows the rigid bodies to rotate around one axis and translate along this axis.
+
+![Alt text](SliderConstraint.png "Slider Constraint.") 
+
+The Generic 6 Degrees of Freedom Constraint can emulate any of the standard constraints. You can customize each of the degrees of freedom and emulate the standard constraints. The first degrees of freedom handle the translation of the rigid mbodies and the last three manages the angular motion.
+
+Information referenced from: Coumans, E., 2015. Bullet 2.83 Physics SDK Manual.[e-book] bulletphysics.org. Available at: Github <https://github.com/bulletphysics/bullet3/blob/master/docs/Bullet_User_Manual.pdf> [Accessed 6 November 2016].
+
+## The Rope Bridge
+The bridge was made using box meshes and btGeneric6DofSpringConstraints. It is made of a simple array of rigid bodies bookended by static rigid bodies. The bridge was built first and then the constraints were put in afterwards. I had to put a constraint on each side of the plank in order to stabilise the bridge. If it was only one line of constraints then the planks would rotate. To demonstrate the stability of the bridge, I've assigned: Q, W, E, R, A, S, D to spawn objects to drop onto the bridge. The first four keys will drop particles on different parts of the bridge while the last three keys will spawn bigger shapes.
+
