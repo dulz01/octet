@@ -340,7 +340,7 @@ namespace octet { namespace scene {
       btGeneric6DofSpringConstraint* spring = new btGeneric6DofSpringConstraint(*rbA, *rbB, tran1, tran2, true);
 
       spring->setLinearLowerLimit(btVector3(0, 0, 0));
-      spring->setLinearUpperLimit(btVector3(1.0f, 0, 0));
+      spring->setLinearUpperLimit(btVector3(0.8f, 0, 0));
 
       spring->enableSpring(0, true);
       world->addConstraint(spring);

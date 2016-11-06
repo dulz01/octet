@@ -12,6 +12,13 @@ namespace octet {
 
     int numObjects = 11;
     btRigidBody *bridge[11];
+    mat4t mat;
+
+    material *red;
+    material *green;
+    material *blue;
+    material *yellow;
+    material *pink;
 
   public:
     example_shapes(int argc, char **argv) : app(argc, argv) {
@@ -25,14 +32,13 @@ namespace octet {
       app_scene = new visual_scene();
       app_scene->create_default_camera_and_lights();
       app_scene->get_camera_instance(0)->get_node()->translate(vec3(0, 4, 0));
-
-      material *red = new material(vec4(1, 0, 0, 1));
-      material *green = new material(vec4(0, 1, 0, 1));
-      material *blue = new material(vec4(0, 0, 1, 1));
-      material *yellow = new material(vec4(1, 1, 0, 1));
-
-      mat4t mat;
             
+      red = new material(vec4(1, 0, 0, 1));
+      green = new material(vec4(0, 1, 0, 1));
+      blue = new material(vec4(0, 0, 1, 1));
+      yellow = new material(vec4(1, 1, 0, 1));
+      pink = new material(vec4(1, 0, 1, 1));
+
       // building the bridge
       // left ground
       mat.loadIdentity();
@@ -73,11 +79,45 @@ namespace octet {
 
       for (int i = 0; i < numObjects - 1; ++i) {
         app_scene->applySpring(bridge[i], bridge[i + 1], tran1, tran2);
-      }      
+      }
+
+      mat.loadIdentity();
+      mat.translate(0, -10, 0);
+      app_scene->add_shape(mat, new mesh_box(vec3(28, 1, 20), 1), blue, false);
+    }
+
+    // spawns cubes to collide with the bridge
+    void spawnObjects()
+    {
+      if (is_key_down(key_q)) {
+        mat.loadIdentity();
+        mat.translate(-9, 5, 0);
+        mesh_instance *left_ground = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), red, true);
+      }
+
+      if (is_key_down(key_w)) {
+        mat.loadIdentity();
+        mat.translate(-4, 5, 0);
+        mesh_instance *left_ground = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), yellow, true);
+      }
+
+      if (is_key_down(key_e)) {
+        mat.loadIdentity();
+        mat.translate(0, 5, 0);
+        mesh_instance *left_ground = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), pink, true);
+      }
+
+      if (is_key_down(key_r)) {
+        mat.loadIdentity();
+        mat.translate(6, 5, 0);
+        mesh_instance *left_ground = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), blue, true);
+      }
     }
 
     /// this is called to draw the world
     void draw_world(int x, int y, int w, int h) {
+      spawnObjects();
+
       int vx = 0, vy = 0;
       get_viewport_size(vx, vy);
       app_scene->begin_render(vx, vy);
