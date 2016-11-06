@@ -469,8 +469,8 @@ namespace octet {
       }
 
       // if the invaders collide with the player then the player loses 1 life
-      sprite &ship = sprites[player_sprite];
-      if (invaders_collide(ship)) {
+      sprite &player = sprites[player_sprite];
+      if (invaders_collide(player)) {
         on_hit_player();
       }
 
