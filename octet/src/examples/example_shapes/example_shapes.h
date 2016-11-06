@@ -47,7 +47,7 @@ namespace octet {
       bridge[0] = left_ground->get_node()->get_rigid_body();
 
       // planks
-      for (int i = 1; i != numObjects - 1; ++i) {
+      for (int i = 1; i < numObjects - 1; ++i) {
         mat.loadIdentity();
         mat.translate(-12 + (i * 2), 0, 0);
         mesh_instance *m = app_scene->add_shape(mat, new mesh_box(vec3(0.8f, 0.1f, 10), 1), green, true);
@@ -89,29 +89,53 @@ namespace octet {
     // spawns cubes to collide with the bridge
     void spawnObjects()
     {
-      if (is_key_down(key_q)) {
+      if (is_key_going_down(key_q)) {
         mat.loadIdentity();
-        mat.translate(-9, 5, 0);
-        mesh_instance *left_ground = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), red, true);
+        mat.translate(-9, 5, 3);
+        app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), red, true);
       }
 
-      if (is_key_down(key_w)) {
+      if (is_key_going_down(key_w)) {
         mat.loadIdentity();
-        mat.translate(-4, 5, 0);
-        mesh_instance *left_ground = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), yellow, true);
+        mat.translate(-4, 5, 3);
+        app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), yellow, true);
       }
 
-      if (is_key_down(key_e)) {
+      if (is_key_going_down(key_e)) {
         mat.loadIdentity();
-        mat.translate(0, 5, 0);
-        mesh_instance *left_ground = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), pink, true);
+        mat.translate(0, 5, 3);
+        app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), pink, true);
       }
 
-      if (is_key_down(key_r)) {
+      if (is_key_going_down(key_r)) {
         mat.loadIdentity();
-        mat.translate(6, 5, 0);
-        mesh_instance *left_ground = app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), blue, true);
+        mat.translate(6, 5, 3);
+        app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), blue, true);
       }
+
+      if (is_key_going_down(key_a)) {
+        mat.loadIdentity();
+        mat.translate(-9, 5, -3);
+        app_scene->add_shape(mat, new mesh_cylinder(vec3(0.1f, 0.1f, 0.1f), 1), blue, true);
+      }
+
+      if (is_key_going_down(key_s)) {
+        mat.loadIdentity();
+        mat.translate(-4, 5, -3);
+        app_scene->add_shape(mat, new mesh_sphere(vec3(0.1f, 0.1f, 0.1f), 1), pink, true);
+      }
+
+      if (is_key_going_down(key_d)) {
+        mat.loadIdentity();
+        mat.translate(0, 5, -3);
+        app_scene->add_shape(mat, new mesh_box(vec3(1.0f, 1.0f, 1.0f), 1), yellow, true);
+      }
+
+      //if (is_key_going_down(key_f)) {
+      //  mat.loadIdentity();
+      //  mat.translate(6, 5, 0);
+      //  app_scene->add_shape(mat, new mesh_box(vec3(0.1f, 0.1f, 0.1f), 1), red, true);
+      //}
     }
 
     /// this is called to draw the world
