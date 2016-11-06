@@ -87,8 +87,7 @@ namespace octet {
     }
 
     // spawns cubes to collide with the bridge
-    void spawnObjects()
-    {
+    void spawnObjects() {
       if (is_key_going_down(key_q)) {
         mat.loadIdentity();
         mat.translate(-9, 5, 3);
